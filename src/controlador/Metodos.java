@@ -5,6 +5,8 @@ import Vista.ExploradorAc;
 import java.io.File;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,9 +23,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class Metodos {
     
+    //Icono que usaremos para JOption.
+    Icon icono = new ImageIcon(getClass().getResource("../icon/jError.png"));
+    
     //Objeto tipo ExploradorAc.
     ExploradorAc explorador = new ExploradorAc();
-    
     
     //Método para obtener tamaño de ficheros. Este método necesita el tamaño para llevar a cabo su función, y devuelve un string con el resultado.
     public String tamanioArchivo (float tamanio){
@@ -50,7 +54,7 @@ public class Metodos {
         //Comprobamos que txtDirectorio tenga algún dato.
         if(directorio.isEmpty()){
             
-            JOptionPane.showMessageDialog(explorador, "Por favor, rellene el campo solicitado.");
+            JOptionPane.showMessageDialog(explorador, "Por favor, rellene el campo solicitado.", "Error", JOptionPane.PLAIN_MESSAGE, icono);
             
         }else{
           
@@ -153,7 +157,7 @@ public class Metodos {
     public void filtroExtension (String directorio, JLabel existeRuta, JTable tablaArchivos, JTextField txtExt, JButton bExt){
          //Comprobamos que los txt tengan datos.
         if(txtExt.getText().isEmpty() || directorio.isEmpty()){
-            JOptionPane.showMessageDialog(explorador, "Rellene los campos solicitados");
+            JOptionPane.showMessageDialog(explorador, "Rellene los campos solicitados", "Error", JOptionPane.PLAIN_MESSAGE, icono);
         }else{
             try{
                 
@@ -174,51 +178,52 @@ public class Metodos {
                 File ruta = new File(directorio);
                 File[] archivos = ruta.listFiles();
                 
-                
-                for(int i=0; i<archivos.length; i++){
+                if (ruta.exists()){
+                    for(int i=0; i<archivos.length; i++){
                     
                     //Comprobamos que los archivos encontrados sean de tipo file.
-                    if(archivos[i].isFile()){
-                        
-                        //Obtenemos el nombre y lo añadimos a su fila.
-                        String nombre = archivos[i].getName();
-                        
-                        //Quitamos la extensión del nombre usando la expresión \.\w+$ y el método replace all.
-                        String nombreA = nombre.replaceAll("\\.\\w+$", "");
-                        
-                        infoRow[0]= nombreA;
-                        
-                        //Partiendo del punto del fichero, conoceremos la extensión.
-                        if(nombre.contains(".")){
-                            
-                            extension = nombre.substring(nombre.lastIndexOf(".")+1);
-                            
-                            //Filtro: A continuación, igualamos las extensiones con la extensión pasada por teclado.
-                            if(extension.equals(ext)){
-                                
-                                //Añadimos el nombre de la extension a su fila.
-                                infoRow[1]=extension;
-                                
-                                //Obtenemos el tamaño.
-                                float tamanio = Files.size(archivos[i].toPath());
-                                infoRow[2] = tamanioArchivo(tamanio);
-                                
-                                //Se trataría de un fichero como antes se pudo comprobar.
-                                infoRow[3] = "Fichero";
-                                
-                                //Por último, añadimos la fila.
-                                modeloTabla.addRow(infoRow);
-                            }
-                                                        
-                        }
+                        if(archivos[i].isFile()){
 
-                        
+                            //Obtenemos el nombre y lo añadimos a su fila.
+                            String nombre = archivos[i].getName();
+
+                            //Quitamos la extensión del nombre usando la expresión \.\w+$ y el método replace all.
+                            String nombreA = nombre.replaceAll("\\.\\w+$", "");
+
+                            infoRow[0]= nombreA;
+
+                            //Partiendo del punto del fichero, conoceremos la extensión.
+                            if(nombre.contains(".")){
+
+                                extension = nombre.substring(nombre.lastIndexOf(".")+1);
+
+                                //Filtro: A continuación, igualamos las extensiones con la extensión pasada por teclado.
+                                if(extension.equals(ext)){
+
+                                    //Añadimos el nombre de la extension a su fila.
+                                    infoRow[1]=extension;
+
+                                    //Obtenemos el tamaño.
+                                    float tamanio = Files.size(archivos[i].toPath());
+                                    infoRow[2] = tamanioArchivo(tamanio);
+
+                                    //Se trataría de un fichero como antes se pudo comprobar.
+                                    infoRow[3] = "Fichero";
+
+                                    //Por último, añadimos la fila.
+                                    modeloTabla.addRow(infoRow);
+                                }
+
+                            }
+
+
+                        }
                     }
-                    
+                }else{
+                    JOptionPane.showMessageDialog(explorador, "El directorio indicado no existe", "Error", JOptionPane.PLAIN_MESSAGE, icono);
                     
                 }
-                
-                
+                       
                 
             }catch(Exception e){
                 System.out.println("ERROR");
