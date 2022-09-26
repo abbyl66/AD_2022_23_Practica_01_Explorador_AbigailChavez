@@ -150,7 +150,7 @@ public class ExploradorAc extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                        .addComponent(bExtension, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bExtension, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                         .addGap(53, 53, 53))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(56, 56, 56)

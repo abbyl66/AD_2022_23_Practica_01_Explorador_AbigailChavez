@@ -5,8 +5,6 @@ import Vista.ExploradorAc;
 import java.io.File;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,9 +20,6 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class Metodos {
-    
-    //Icono que usaremos para JOption.
-    Icon icono = new ImageIcon(getClass().getResource("../icon/jError.png"));
     
     //Objeto tipo ExploradorAc.
     ExploradorAc explorador = new ExploradorAc();
@@ -54,7 +49,7 @@ public class Metodos {
         //Comprobamos que txtDirectorio tenga algún dato.
         if(directorio.isEmpty()){
             
-            JOptionPane.showMessageDialog(explorador, "Por favor, rellene el campo solicitado.", "Error", JOptionPane.PLAIN_MESSAGE, icono);
+            JOptionPane.showMessageDialog(explorador, "Por favor, rellene el campo solicitado.");
             
         }else{
           
@@ -157,7 +152,7 @@ public class Metodos {
     public void filtroExtension (String directorio, JLabel existeRuta, JTable tablaArchivos, JTextField txtExt, JButton bExt){
          //Comprobamos que los txt tengan datos.
         if(txtExt.getText().isEmpty() || directorio.isEmpty()){
-            JOptionPane.showMessageDialog(explorador, "Rellene los campos solicitados", "Error", JOptionPane.PLAIN_MESSAGE, icono);
+            JOptionPane.showMessageDialog(explorador, "Rellene los campos solicitados");
         }else{
             try{
                 
@@ -220,7 +215,7 @@ public class Metodos {
                         }
                     }
                 }else{
-                    JOptionPane.showMessageDialog(explorador, "El directorio indicado no existe", "Error", JOptionPane.PLAIN_MESSAGE, icono);
+                    JOptionPane.showMessageDialog(explorador, "El directorio indicado no existe");
                     
                 }
                        
